@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Logout</button>
+                </form>            
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+            </ul>
+        </div>
+    <div>
+        <div>
+            <span>ID: </span>
+            <span th:text="${shiftDTO.id}"></span>
+        </div>
+        <div>
+            <span>Tên: </span>
+            <span th:text="${shiftDTO.name}"></span>
+        </div>
+        <div>
+            <span>Thời gian bắt đầu: </span>
+            <span th:text="${shiftDTO.startTime}"></span>
+        </div>
+        <div>
+            <span>Thời gian kết thúc: </span>
+            <span th:text="${shiftDTO.endTime}"></span>
+        </div>
+        <div>
+            <span>Ngày làm việc: </span>
+            <span th:text="${shiftDTO.workingDay}"></span>
+        </div>
+        <div>
+            <span>Số lượng tối đa: </span>
+            <span th:text="${shiftDTO.max}"></span>
+        </div>
+        <div>
+            <h3>Các ca làm việc sắp tới</h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ và Tên</th>
+                    <th>Email</th>
+                    <th>Chức vụ</th>
+                </tr>
+                <tr th:each="user : ${shiftDTO.rollCallAndTimekeepingDTOList}">
+                    <td>
+                        <a href="">
+                            <span th:text="${user.userDTO.id}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${user.userDTO.name}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${user.userDTO.email}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${user.userDTO.position}"></span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
