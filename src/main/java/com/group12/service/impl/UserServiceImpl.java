@@ -2,6 +2,7 @@ package com.group12.service.impl;
 
 import com.group12.dto.RollCallAndTimekeepingDTO;
 import com.group12.dto.ShiftDTO;
+import com.group12.dto.UpdateUserRequest;
 import com.group12.dto.UserDTO;
 import com.group12.model.RollCallAndTimekeeping;
 import com.group12.model.Shift;
@@ -67,13 +68,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(Long id, UserDTO userDTO) {
-        return null;
+    public UserDTO updateUser(UpdateUserRequest request) {
+        User user = userRepository.findById(request.getUserId()).get();
+
+        user.setName(request.getUserDTO().getName());
+        user.setImage(userDTO.getImage());
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setSeniority(userDTO.getSeniority());
+        user.setEmail(userDTO.getEmail());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setAccountNumber(userDTO.getAccountNumber());
+        user.setAddress(userDTO.getAddress());
+        user.setPosition(userDTO.getPosition());
+        user.setSalary(userDTO.getSalary());
+
+        return mapToDTO(userRepository.save(user));
     }
 
     @Override
     public void deleteUser(Long id) {
-
+        userRepository.deleteById(id);
     }
 
     @Override

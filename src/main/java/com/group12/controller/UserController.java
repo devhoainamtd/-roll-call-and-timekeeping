@@ -21,11 +21,11 @@ public class UserController {
     @Autowired
     private RollCallAndTimekeepingService rollCallTimekeepingService;
 
+//    User
     @PostMapping("/add-user")
     public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok().body(userService.addUser(userDTO));
     }
-
     @GetMapping("/get-all-users")
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
@@ -35,7 +35,20 @@ public class UserController {
     public UserDTO getUserById(@PathVariable Long id) {
         return rollCallTimekeepingService.getUserById(id);
     }
-    @PostMapping("add-shift")
+
+    @PostMapping("/update-user/{id}")
+    public UserDTO updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    return null;
+    }
+
+    @DeleteMapping("/delete-user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().body("Delete user successfully!");
+    }
+
+//    Shift
+    @PostMapping("/add-shift")
     public ResponseEntity<ShiftDTO> addShift(@RequestBody ShiftDTO shiftDTO) {
         return ResponseEntity.ok().body(shiftService.addShift(shiftDTO));
     }
@@ -43,6 +56,17 @@ public class UserController {
     @GetMapping("/get-all-shifts")
     public List<ShiftDTO> getAllShifts() {
         return shiftService.getAllShifts();
+    }
+
+    @PostMapping("/update-shift/{id}")
+    public ShiftDTO updateShift(@PathVariable Long id, @RequestBody ShiftDTO shiftDTO) {
+        return shiftService.updateShift(id, shiftDTO);
+    }
+
+    @DeleteMapping("/delete-shift/{id}")
+    public ResponseEntity<?> deleteShift(@PathVariable Long id) {
+        shiftService.deleteShift(id);
+        return ResponseEntity.ok().body("Delete Shift Successfully !");
     }
 
     @PostMapping("/register-shift")

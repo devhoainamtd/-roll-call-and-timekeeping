@@ -36,12 +36,20 @@ public class ShiftServiceImpl implements ShiftService {
 
     @Override
     public ShiftDTO updateShift(Long id, ShiftDTO shiftDTO) {
-        return null;
+
+        Shift shift = shiftRepository.findById(id).get();
+
+        shift.setName(shiftDTO.getName());
+        shift.setStartTime(shiftDTO.getStartTime());
+        shift.setEndTime(shiftDTO.getEndTime());
+        shift.setWorkingDay(shiftDTO.getWorkingDay());
+        shift.setMax(shiftDTO.getMax());
+        return mapToDTO(shiftRepository.save(shift));
     }
 
     @Override
     public void deleteShift(Long id) {
-
+        shiftRepository.deleteById(id);
     }
 
     public Shift mapToEntity(ShiftDTO shiftDTO) {
