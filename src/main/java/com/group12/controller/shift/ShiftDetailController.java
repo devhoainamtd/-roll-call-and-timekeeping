@@ -1,4 +1,4 @@
-package com.group12.controller;
+package com.group12.controller.shift;
 
 import com.group12.dto.ShiftDTO;
 import com.group12.dto.UserDTO;

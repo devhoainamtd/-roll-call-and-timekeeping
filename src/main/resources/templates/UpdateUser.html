@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a>
+                </li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+            </ul>
+        </div>
+
+        <div style="display: flex;">
+            <div>
+                <div>
+                    <div>
+                        <span>Họ và Tên</span>
+                    </div>
+                    <div>
+                        <input type="text" class="name">
+                    </div>
+                </div>
+                <div>
+                    <div>
+    
+                        <span>Hình ảnh</span>
+                    </div>
+                    <div>
+    
+                        <input type="text" class="image">
+                    </div>
+                </div>
+                <div>
+                    <div>
+    
+                        <span>Mật khẩu</span>
+                    </div>
+                    <div>
+    
+                        <input type="text" class="password">
+                    </div>
+                </div>
+                <div>
+                    <div>
+    
+                        <span>Thâm niên</span>
+                    </div>
+                    <div>
+    
+                        <input type="text" class="seniority">
+                    </div>
+                </div>
+                <div>
+                    <div>
+    
+                        <span>Email</span>
+                    </div>
+                    <div>
+                        <input type="text" class="email">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Số điện thoại</span>
+                    </div>
+                    <div>
+                        <input type="text" class="phoneNumber">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Số tài khoản</span>
+                    </div>
+                    <div>
+                        <input type="text" class="accountNumber">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Địa chỉ</span>
+                    </div>
+                    <div>
+                        <input type="text" class="address">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Chức vụ</span>
+                    </div>
+                    <div>
+                        <input type="text" class="position">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Lương</span>
+                    </div>
+                    <div>
+                        <input type="text" class="salary">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Các ca làm việc sắp tới</h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên ca</th>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    <th>Ngày làm</th>
+                </tr>
+                <tr th:each="shift : ${userDTO.rollCallAndTimekeepingDTOList}">
+                    <td>
+                        <a href="">
+                            <span th:text="${shift.shiftDTO.id}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${shift.shiftDTO.name}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${shift.shiftDTO.startTime}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${shift.shiftDTO.endTime}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="">
+                            <span th:text="${shift.shiftDTO.workingDay}"></span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+        <div>
+            <button >Cập nhật</button>
+        </div>
+    </div>
+    <script>
+        function update(uId) {
+            const name = document.querySelector('.name').value;
+            const image = document.querySelector('.image').value;
+            const password = document.querySelector('.password').value;
+            const seniority = document.querySelector('.seniority').value;
+            const phoneNumber = document.querySelector('.phoneNumber').value;
+            const accountNumber = document.querySelector('.accountNumber').value;
+            const address = document.querySelector('.address').value;
+            const position = document.querySelector('.position').value;
+            const salary = document.querySelector('.salary').value;
+            
+            var UserDTO = {
+                name: name,
+                image: image,
+                password: password,
+                seniority: seniority,
+                phoneNumber: phoneNumber,
+                accountNumber: accountNumber,
+                address: address,
+                position: position,
+                salary: salary
+            }
+        }
+    </script>
+</body>
+
+</html>

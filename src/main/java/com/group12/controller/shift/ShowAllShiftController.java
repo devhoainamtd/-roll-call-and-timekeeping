@@ -1,4 +1,4 @@
-package com.group12.controller;
+package com.group12.controller.shift;
 
 import java.security.Principal;
 import java.util.List;
