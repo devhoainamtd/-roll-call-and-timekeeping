@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="/page/register-shift">Đăng ký ca</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                <li><a th:href="@{'/page/personal-home-page'}">Thông tin cá nhân</a></li>
+            </ul>
+        </div>
+        <div>
+            <div>
+                <div>
+                    <span>Họ và Tên</span>
+                </div>
+                <div>
+                    <input type="text" id="name">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Hình ảnh</span>
+                </div>
+                <div>
+
+                    <input type="text" id="image">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Username</span>
+                </div>
+                <div>
+                    <input type="text" id="username">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Mật khẩu</span>
+                </div>
+                <div>
+
+                    <input type="text" id="password">
+                </div>
+            </div>
+            <div>
+                <div>
+
+                    <span>Thâm niên</span>
+                </div>
+                <div>
+
+                    <input type="text" id="seniority">
+                </div>
+            </div>
+            <div>
+                <div>
+
+                    <span>Email</span>
+                </div>
+                <div>
+                    <input type="text" id="email">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Số điện thoại</span>
+                </div>
+                <div>
+                    <input type="text" id="phoneNumber">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Số tài khoản</span>
+                </div>
+                <div>
+                    <input type="text" id="accountNumber">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Địa chỉ</span>
+                </div>
+                <div>
+                    <input type="text" id="address">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Chức vụ</span>
+                </div>
+                <div>
+                    <input type="text" id="position">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Lương</span>
+                </div>
+                <div>
+                    <input type="text" id="salary">
+                </div>
+            </div>
+            <div>
+                <button th:onclick="update()">Thêm nhân viên</button>
+            </div>
+        </div>
+
+        <script>
+            function update() {
+
+                var id = "1"
+                var name = document.querySelector('#name').value;
+                var image = document.querySelector('#image').value;
+                var username = document.querySelector('#username').value;
+                var password = document.querySelector('#password').value;
+                var seniority = document.querySelector('#seniority').value;
+                var phoneNumber = document.querySelector('#phoneNumber').value;
+                var accountNumber = document.querySelector('#accountNumber').value;
+                var address = document.querySelector('#address').value;
+                var position = document.querySelector('#position').value;
+                var salary = document.querySelector('#salary').value;
+
+                var userDTO = {
+                    id: id,
+                    name: name,
+                    image: image,
+                    username: username,
+                    password: password,
+                    seniority: seniority,
+                    phoneNumber: phoneNumber,
+                    accountNumber: accountNumber,
+                    address: address,
+                    position: position,
+                    salary: salary
+                }
+
+
+
+                fetch('http://localhost:8080/add-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userDTO)
+                })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                            // window.location.href = "login";
+                        }
+                        else {
+                            alert("Tên người dùng đã tồn tại");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("Lỗi trong quá trình chạy!");
+                    });
+                // console.log(updateUserRequest);
+            }
+        </script>
+</body>
+
+</html>

@@ -58,10 +58,10 @@ public class UserController {
         return shiftService.getAllShifts();
     }
 
-    @PostMapping("/update-shift/{id}")
-    public ShiftDTO updateShift(@PathVariable Long id, @RequestBody ShiftDTO shiftDTO) {
-        return shiftService.updateShift(id, shiftDTO);
-    }
+//    @PostMapping("/update-shift/{id}")
+//    public ShiftDTO updateShift(@PathVariable Long id, @RequestBody ShiftDTO shiftDTO) {
+//        return shiftService.updateShift(id, shiftDTO);
+//    }
 
     @DeleteMapping("/delete-shift/{id}")
     public ResponseEntity<?> deleteShift(@PathVariable Long id) {
@@ -70,8 +70,8 @@ public class UserController {
     }
 
     @PostMapping("/register-shift")
-    public ResponseEntity<String> registerShift(@RequestBody Request request) {
-        rollCallTimekeepingService.registerShift(request);
+    public ResponseEntity<String> registerShift(@RequestBody RegisterShiftRequest registerShiftRequest) {
+        rollCallTimekeepingService.registerShift(registerShiftRequest);
         return ResponseEntity.ok().body("Register Shift sucessfull!!!");
     }
 

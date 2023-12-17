@@ -25,9 +25,11 @@
         <div class="navigation">
             <ul>
                 <li><a href="/home">Trang chủ</a></li>
-                <li><a href="#">Điểm danh và chấm công</a></li>
+                <li><a href="/page/register-shift">Đăng ký ca</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a></li>
                 <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
                 <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                <li><a th:href="@{'/page/personal-home-page'}">Thông tin cá nhân</a></li>
             </ul>
         </div>
         <div>
@@ -45,7 +47,7 @@
             </div>
             <div>
                 <span>Chức vụ: </span>
-                <span th:text="${userDTO.position}"></span>
+                <span th:text="${currentUser.position}"></span>
             </div>
             <div>
                 <h3>Các ca làm việc sắp tới</h3>
@@ -62,7 +64,7 @@
                         <th>Trạng thái chấm công</th>
                         <th></th>
                     </tr>
-                    <tr th:each="x : ${userDTO.rollCallAndTimekeepingDTOList}">
+                    <tr th:each="x : ${currentUser.rollCallAndTimekeepingDTOList}">
                         <td>
                             <span th:text="${x.shiftDTO.id}"></span>
                         </td>
@@ -145,7 +147,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('There was an error with the request:', error);
+                    console.error('There was an error with the registerShiftRequest:', error);
                     // Xử lý lỗi (nếu có)
                 });
             console.log(body)
@@ -182,7 +184,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('There was an error with the request:', error);
+                    console.error('There was an error with the registerShiftRequest:', error);
                     // Xử lý lỗi (nếu có)
                 });
             console.log(body)

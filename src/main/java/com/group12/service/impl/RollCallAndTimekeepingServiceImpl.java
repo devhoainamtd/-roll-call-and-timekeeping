@@ -31,31 +31,41 @@ public class RollCallAndTimekeepingServiceImpl implements RollCallAndTimekeeping
 
 //    Đăng ký ca làm việc
     @Override
-    public void registerShift(Request request) {
-        User user = userRepository.findById(request.getUserId()).get();
+    public void registerShift(RegisterShiftRequest registerShiftRequest) {
+        User user = userRepository.findById(registerShiftRequest.getUserId()).get();
+        List<RollCallAndTimekeeping> listOfUser = user.getRollCallAndTimekeepingList();
         List<Shift> shiftList = new ArrayList<>();
-        for (Long i : request.getShiftIds()) {
+        for (Long i : registerShiftRequest.getShiftIds()) {
             shiftList.add(shiftRepository.findById(i).get());
         }
 
         for(Shift shift : shiftList) {
-            RollCallAndTimekeeping rollCallTimekeeping = new RollCallAndTimekeeping();
-            rollCallTimekeeping.setUser(user);
-            rollCallTimekeeping.setShift(shift);
-            rollCallTimekeepingRepository.save(rollCallTimekeeping);
+            int i = 0;
+            for (RollCallAndTimekeeping r : listOfUser) {
+                if (shift.getId() == r.getShift().getId()) {
+                    i = 1;
+                    break;
+                }
+            }
+            if (i == 0) {
+                RollCallAndTimekeeping rollCallTimekeeping = new RollCallAndTimekeeping();
+                rollCallTimekeeping.setUser(user);
+                rollCallTimekeeping.setShift(shift);
+                rollCallTimekeepingRepository.save(rollCallTimekeeping);
+            }
         }
 
         List<RollCallAndTimekeeping> rollCallTimekeepings = new ArrayList<>();
 
         for (RollCallAndTimekeeping r : rollCallTimekeepingRepository.findAll()) {
-            if (r.getUser().getId() == request.getUserId()) {
+            if (r.getUser().getId() == registerShiftRequest.getUserId()) {
                 rollCallTimekeepings.add(r);
             }
         }
 
         for (Shift s : shiftList) {
             for (RollCallAndTimekeeping r : rollCallTimekeepingRepository.findAll()) {
-                if (r.getUser().getId() == request.getUserId() && r.getShift().getId() == s.getId()) {
+                if (r.getUser().getId() == registerShiftRequest.getUserId() && r.getShift().getId() == s.getId()) {
                     s.getRollCallAndTimekeepingList().add(r);
 
                 }
@@ -95,6 +105,11 @@ public class RollCallAndTimekeepingServiceImpl implements RollCallAndTimekeeping
         }
         shiftDTO.setRollCallAndTimekeepingDTOList(rollCallAndTimekeepingDTOList);
         return shiftDTO;
+    }
+
+    @Override
+    public void deleteRollCallAndTimekeepingById(Long id) {
+        rollCallTimekeepingRepository.deleteById(id);
     }
 
     @Override

@@ -27,7 +27,8 @@ public class RollCallAndTimekeepingController {
     @GetMapping("/roll-call-and-timekeeping-detail/{id}")
     public String getRollCallAndTimeKeepingById(Model model, @PathVariable Long id, Principal principal) {
         String username = principal.getName();
-        UserDTO currentUser = userService.getUserByUsername(username);
+        UserDTO x = userService.getUserByUsername(username);
+        UserDTO currentUser = rollCallAndTimekeepingService.getUserById(id);
 
         UserDTO userDTO = rollCallAndTimekeepingService.getUserById(id);
 
@@ -45,6 +46,12 @@ public class RollCallAndTimekeepingController {
     @PostMapping("/timekeeping")
     public ResponseEntity<?> timekeeping(@RequestBody RollCallAndTimekeepingRequest request) {
         rollCallAndTimekeepingService.timekeeping(request);
+        return ResponseEntity.ok().body("succ");
+    }
+
+    @PostMapping("/delete-shift-of-user")
+    public ResponseEntity<?> deleteRollCallAndTimekeepingById(@RequestBody Long id) {
+        rollCallAndTimekeepingService.deleteRollCallAndTimekeepingById(id);
         return ResponseEntity.ok().body("succ");
     }
 

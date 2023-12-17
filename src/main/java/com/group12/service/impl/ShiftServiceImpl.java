@@ -1,6 +1,7 @@
 package com.group12.service.impl;
 
 import com.group12.dto.ShiftDTO;
+import com.group12.dto.UpdateShiftRequest;
 import com.group12.model.Shift;
 import com.group12.repository.ShiftRepository;
 import com.group12.service.ShiftService;
@@ -35,15 +36,15 @@ public class ShiftServiceImpl implements ShiftService {
     }
 
     @Override
-    public ShiftDTO updateShift(Long id, ShiftDTO shiftDTO) {
+    public ShiftDTO updateShift(UpdateShiftRequest request) {
 
-        Shift shift = shiftRepository.findById(id).get();
+        Shift shift = shiftRepository.findById(request.getShiftId()).get();
 
-        shift.setName(shiftDTO.getName());
-        shift.setStartTime(shiftDTO.getStartTime());
-        shift.setEndTime(shiftDTO.getEndTime());
-        shift.setWorkingDay(shiftDTO.getWorkingDay());
-        shift.setMax(shiftDTO.getMax());
+        shift.setName(request.getShiftDTO().getName());
+        shift.setStartTime(request.getShiftDTO().getStartTime());
+        shift.setEndTime(request.getShiftDTO().getEndTime());
+        shift.setWorkingDay(request.getShiftDTO().getWorkingDay());
+        shift.setMax(request.getShiftDTO().getMax());
         return mapToDTO(shiftRepository.save(shift));
     }
 

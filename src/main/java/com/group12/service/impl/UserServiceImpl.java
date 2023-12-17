@@ -72,16 +72,16 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(request.getUserId()).get();
 
         user.setName(request.getUserDTO().getName());
-        user.setImage(userDTO.getImage());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setSeniority(userDTO.getSeniority());
-        user.setEmail(userDTO.getEmail());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setAccountNumber(userDTO.getAccountNumber());
-        user.setAddress(userDTO.getAddress());
-        user.setPosition(userDTO.getPosition());
-        user.setSalary(userDTO.getSalary());
+        user.setImage(request.getUserDTO().getImage());
+        user.setUsername(request.getUserDTO().getUsername());
+        user.setPassword(passwordEncoder.encode(request.getUserDTO().getPassword()));
+        user.setSeniority(request.getUserDTO().getSeniority());
+        user.setEmail(request.getUserDTO().getEmail());
+        user.setPhoneNumber(request.getUserDTO().getPhoneNumber());
+        user.setAccountNumber(request.getUserDTO().getAccountNumber());
+        user.setAddress(request.getUserDTO().getAddress());
+        user.setPosition(request.getUserDTO().getPosition());
+        user.setSalary(request.getUserDTO().getSalary());
 
         return mapToDTO(userRepository.save(user));
     }
