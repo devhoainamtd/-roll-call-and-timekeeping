@@ -79,6 +79,18 @@
         #btnlogout:hover {
             background-color: #bf4024;
         }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 
@@ -91,7 +103,8 @@
             </div>
             <div>
                 <form th:action="@{/logout}" method="post">
-                    <button id="btnlogout" type="submit">Logout</button>
+                    <button id="btnlogout" style="float: right;
+                    margin-top: -34px;" type="submit">Logout</button>
                 </form>
             </div>
         </header>
