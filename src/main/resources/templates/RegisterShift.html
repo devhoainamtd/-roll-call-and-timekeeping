@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Logout</button>
+                </form>            
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="/page/register-shift">Đăng ký ca</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                <li><a th:href="@{'/page/personal-home-page'}">Thông tin cá nhân</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div>
+                <span>ID</span>
+                <span th:text="${currentUser.id}"></span>
+            </div>
+            <div>
+                <span>Họ và tên</span>
+                <span th:text="${currentUser.id}"></span>
+            </div>
+            <div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    <th>Ngày làm</th>
+                    <th>Số lượng nhân viên tối đa</th>
+                    <th></th>
+                </tr>
+
+                <tr th:each="shift : ${listShift}">
+                    <td>
+                        <span th:text="${shift.id}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.name}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.startTime}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.endTime}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.workingDay}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.max}"></span>
+                    </td>
+                    <td>
+                        <input type="checkbox" th:value="${shift.id}" class="shiftCheckbox">
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <div>
+                <button th:onclick="'registerShifts(\'' + ${currentUser.id} + '\')'">Đăng ký</button>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        function registerShifts(id) {
+        const selectedShifts = [];
+        const checkboxes = document.getElementsByClassName('shiftCheckbox');
+
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedShifts.push(checkboxes[i].value);
+            }
+        }
+        console.log(selectedShifts);
+
+        var registerShiftRequest = {
+            userId: id,
+            shiftIds: selectedShifts
+        }
+
+        fetch('http://localhost:8080/register-shift' , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registerShiftRequest)
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        // window.location.href = "login";
+                    }
+                    else {
+                        alert("Tên người dùng đã tồn tại");
+                    }
+                })
+                .catch((error) => {
+                    alert("Lỗi trong quá trình chạy!");
+                });
+}
+
+    </script>
+
+</body>
+</html>

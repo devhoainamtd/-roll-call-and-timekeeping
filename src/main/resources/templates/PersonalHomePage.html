@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="/page/register-shift">Đăng ký ca</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                <li><a th:href="@{'/page/personal-home-page'}">Thông tin cá nhân</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div>
+                <span>ID: </span>
+                <span th:text="${userDTO.id}"></span>
+            </div>
+            <div>
+                <span>Họ và Tên: </span>
+                <span th:text="${userDTO.name}"></span>
+            </div>
+            <div>
+                <span>Hình ảnh: </span>
+                <span th:text="${userDTO.image}"></span>
+            </div>
+            <div>
+                <span>Thâm niên: </span>
+                <span th:text="${userDTO.seniority}"></span>
+            </div>
+            <div>
+                <span>Email: </span>
+                <span th:text="${userDTO.email}"></span>
+            </div>
+            <div>
+                <span>Số điện thoại: </span>
+                <span th:text="${userDTO.phoneNumber}"></span>
+            </div>
+            <div>
+                <span>Số tài khoản: </span>
+                <span th:text="${userDTO.accountNumber}"></span>
+            </div>
+            <div>
+                <span>Địa chỉ: </span>
+                <span th:text="${userDTO.address}"></span>
+            </div>
+            <div>
+                <span>Chức vụ: </span>
+                <span th:text="${userDTO.position}"></span>
+            </div>
+            <div>
+                <span>Lương: </span>
+                <span th:text="${userDTO.salary}"></span>
+            </div>
+        <div>
+            <a href="/personal-information">Cập nhật</a>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

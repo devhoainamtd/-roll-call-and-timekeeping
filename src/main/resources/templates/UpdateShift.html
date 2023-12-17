@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="/page/register-shift">Đăng ký ca</a></li>
+                <li><a th:href="@{'/roll-call-and-timekeeping-detail/' + ${currentUser.id}}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                <li><a th:href="@{'/page/personal-home-page'}">Thông tin cá nhân</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div>
+                <div>
+                    <span>Tên</span>
+                </div>
+                <div>
+                    <input type="text" id="name">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Thời gian bắt đầu</span>
+                </div>
+                <div>
+                    <input type="time" id="start-time">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Thời gian kết thúc</span>
+                </div>
+                <div>
+                    <input type="time" id="end-time">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Ngày làm</span>
+                </div>
+                <div>
+                    <input type="date" id="working-day">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Số lượng nhân viên tốt đa</span>
+                </div>
+                <div>
+                    <input type="number" id="max">
+                </div>
+            </div>
+        </div>
+        <div>
+            <button onclick="update()">Cập nhật</button>
+        </div>
+    </div>
+    <script>
+        function update() {
+
+            // Lấy URL hiện tại
+const url = window.location.href;
+
+// Phân tách URL thành các phần dựa trên dấu "/"
+const parts = url.split('/');
+
+// Lấy ID từ phần cuối cùng của mảng parts
+const id = parts[parts.length - 1];
+
+console.log(id);
+            var name = document.querySelector('#name').value
+            var startTime = document.querySelector('#start-time').value
+            var endTime = document.querySelector('#end-time').value
+            var workingDay = document.querySelector('#working-day').value
+            var max = document.querySelector('#max').value
+
+
+            var shiftDTO = {
+                name: name,
+                startTime: startTime,
+                endTime: endTime,
+                workingDay: workingDay,
+                max: max
+            }
+
+            var updateShiftRequest = {
+                shiftId: id,
+                shiftDTO: shiftDTO
+            }
+
+            fetch('http://localhost:8080/update-shift/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateShiftRequest)
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        // window.location.href = "login";
+                    }
+                    else {
+                        alert("Tên người dùng đã tồn tại");
+                    }
+                })
+                .catch((error) => {
+                    alert("Lỗi trong quá trình chạy!");
+                });
+            console.log(updateShiftRequest);
+        }
+    </script>
+</body>
+
+</html>
