@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -21,13 +22,11 @@ public class UpdateUserController {
     @Autowired
     private RollCallAndTimekeepingService rollCallAndTimekeepingService;
 
-    @GetMapping("/personal-information")
-    public String personalHomePage(Model model, Principal principal) {
-        String username = principal.getName();
-        UserDTO x = userService.getUserByUsername(username);
-        UserDTO currentUser = rollCallAndTimekeepingService.getUserById(x.getId());
+    @GetMapping("/personal-information/{id}")
+    public String personalHomePage(Model model, @PathVariable Long id, Principal principal) {
+        UserDTO userDTO = rollCallAndTimekeepingService.getUserById(id);
 
-        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("userDTO", userDTO);
         return "UpdateUser";
     }
     @PostMapping("/update-user")

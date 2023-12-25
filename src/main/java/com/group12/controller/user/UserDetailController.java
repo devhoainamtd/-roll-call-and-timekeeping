@@ -18,10 +18,10 @@ public class UserDetailController {
     @Autowired
     private UserService userService;
     @GetMapping("/user-detail/{id}")
-    public String getUserById(Model model, @PathVariable Long id, Principal principal) {
-        String username = principal.getName();
-        UserDTO currentUser = userService.getUserByUsername(username);
-        model.addAttribute("currentUser", currentUser);
+    public String getUserById(Model model, @PathVariable Long id) {
+//        String username = principal.getName();
+//        UserDTO currentUser = userService.getUserByUsername(username);
+//        model.addAttribute("currentUser", currentUser);
         UserDTO userDTO = rollCallAndTimekeepingService.getUserById(id);
         model.addAttribute("userDTO", userDTO);
         return "userDetail";
