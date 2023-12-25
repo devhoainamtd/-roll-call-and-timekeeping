@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin của 1 ca</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <style>
+        body {
+
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+        }
+
+        .wrapper {
+            max-width: 1680px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .navigation ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navigation li {
+            float: left;
+        }
+
+        .navigation li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navigation li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .nhanvientrongca {
+            width: 1500px;
+            border: 1px solid black;
+        }
+
+        .nhanvientrongca th {
+            background-color: black;
+            color: white;
+        }
+
+        .nhanvientrongca tr {
+            border: 1px solid black;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #btnlogout {
+            background-color: #e44d26;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #btnlogout:hover {
+            background-color: #bf4024;
+        }
+
+        button {
+            background-color: #4CAF50;
+        }
+
+        button:hover {
+            background-color: rgb(164, 164, 241);
+        }
+
+        .navigation ul {
+            display: flex;
+
+        }
+
+        .navigation ul li {}
+
+        .navigation ul {
+            display: flex;
+
+        }
+
+        .navigation ul li {
+            flex-grow: 1;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button id="btnlogout" style="float: right;
+                    margin-top: -60px;" type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+
+            </ul>
+        </div>
+        <div>
+            <span>Mã ca: </span>
+            <span th:text="${shiftDTO.id}"></span>
+        </div>
+        <div>
+            <span>Tên ca: </span>
+            <span th:text="${shiftDTO.name}"></span>
+        </div>
+        <div>
+            <span>Thời gian bắt đầu: </span>
+            <span th:text="${shiftDTO.startTime}"></span>
+        </div>
+        <div>
+            <span>Thời gian kết thúc: </span>
+            <span th:text="${shiftDTO.endTime}"></span>
+        </div>
+        <div>
+            <span>Ngày làm việc: </span>
+            <span th:text="${shiftDTO.workingDay}"></span>
+        </div>
+        <div>
+            <span>Số lượng tối đa: </span>
+            <span th:text="${shiftDTO.max}"></span>
+        </div>
+
+        <div>
+            <table class="nhanvientrongca">
+                <tr>
+                    <th>Mã nhân viên</th>
+                    <th>Tên nhân viên</th>
+                    <th>Thời gian điểm danh</th>
+                    <th>Trạng thái điểm danh</th>
+                    <th>Thời gian chấm công</th>
+                    <th>Trạng thái chấm công</th>
+                    <th></th>
+                </tr>
+                <tr th:each="x : ${shiftDTO.rollCallAndTimekeepingDTOList}">
+                    <td>
+                        <span th:text="${x.userDTO.id}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${x.userDTO.name}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${x.rollCallTime} == null">00:00:00</span>
+                        <span th:unless="${x.rollCallTime} == null" th:text="${x.rollCallTime}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${x.rollCallStatus} == null">Chưa điểm danh</span>
+                        <span th:unless="${x.rollCallStatus} == null" th:text="${x.rollCallStatus}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${x.timekeepingTime} == null">00:00:00</span>
+                        <span th:unless="${x.timekeepingTime} == null" th:text="${x.timekeepingTime}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${x.timekeepingStatus} == null">Chưa chấm công</span>
+                        <span th:unless="${x.timekeepingStatus} == null" th:text="${x.timekeepingStatus}"></span>
+                    </td>
+                    <td>
+                        <button id="roll-call"
+                            th:onclick="'rollCall(\'' + ${x.userDTO.id} + '\', \'' + ${shiftDTO.id} + '\')'">
+                            Điểmdanh
+                        </button>
+                        <button id="timekeeping"
+                            th:onclick="'timekeeping(\'' + ${x.userDTO.id} + '\', \'' + ${shiftDTO.id} + '\')'">
+                            Chấm công
+                        </button>
+                        <!-- <button id="timekeeping" style="background-color: #e44d26; color: white;"
+                            th:onclick="'timekeeping(\'' + ${x.userDTO.id} + '\', \'' + ${shiftDTO.id} + '\')'">
+                            Xóa
+                        </button> -->
+                    </td>
+                </tr>
+            </table>
+            <button type="button">Thêm nhân viên làm việc</button>
+        </div>
+    </div>
+
+    <script>
+        function rollCall(uId, sId) {
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
+            // Lấy thời gian hiện tại và chuyển đổi thành chuỗi HH:mm:ss
+            const userId = parseInt(uId);
+            const shiftId = parseInt(sId);
+            const body = {
+                userId: userId,
+                shiftId: shiftId,
+                currentTime: currentTime
+            }
+            fetch('http://localhost:8080/roll-call', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    shiftId: shiftId,
+                    currentTime: currentTime
+                })
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        alert("Bạn đã điểm danh thành công!");
+                        // window.location.href = "login";
+                    }
+                    else {
+                        alert("Bạn điểm danh thành công!");
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error with the registerShiftRequest:', error);
+                    // Xử lý lỗi (nếu có)
+                });
+            console.log(body)
+        }
+
+        function timekeeping(uId, sId) {
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
+            // Lấy thời gian hiện tại và chuyển đổi thành chuỗi HH:mm:ss
+            const userId = parseInt(uId);
+            const shiftId = parseInt(sId);
+            const body = {
+                userId: userId,
+                shiftId: shiftId,
+                currentTime: currentTime
+            }
+            fetch('http://localhost:8080/timekeeping', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    shiftId: shiftId,
+                    currentTime: currentTime
+                })
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        alert("Bạn đã chấm công thành công!");
+                        // window.location.href = "login";
+                    }
+                    else {
+                        alert("Bạn chấm không thành công!");
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error with the registerShiftRequest:', error);
+                    // Xử lý lỗi (nếu có)
+                });
+            console.log(body)
+        }
+    </script>
+</body>
+
+</html>

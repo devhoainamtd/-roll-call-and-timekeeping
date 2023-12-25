@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tất cả các ca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+        }
+        
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .navigation ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        .navigation li {
+            float: left;
+        }
+        
+        .navigation li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        .navigation li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #333;
+            color: white;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #bf4024;
+        }
+        button{
+            background-color: #4CAF50;
+        }
+        button:hover{
+            background-color: rgb(164, 164, 241);
+        }
+        .navigation ul{
+            display: flex;
+        
+        }
+        .navigation ul li{
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button id="btnlogout" style="float: right;
+                    margin-top: -34px;" type="submit">Logout</button>
+                </form>           
+            </div>
+        </header>
+
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                
+            </ul>
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <th>Mã ca</th>
+                    <th>Tên ca</th>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    <th>Ngày làm việc</th>
+                    <th>Số lượng nhân viên tối đa</th>
+                    <th></th>
+                </tr>
+
+                <tr th:each="shift : ${listShift}">
+                    <td>
+                        <a th:href="@{'/shift-detail/' + ${shift.id}}">
+                            <span th:text="${shift.id}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/shift-detail/' + ${shift.id}}">
+                            <span th:text="${shift.name}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/shift-detail/' + ${shift.id}}">
+                            <span th:text="${shift.startTime}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/shift-detail/' + ${shift.id}}">
+                            <span th:text="${shift.endTime}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/shift-detail/' + ${shift.id}}">
+                            <span th:text="${shift.workingDay}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/shift-detail/' + ${shift.id}}">
+                            <span th:text="${shift.max}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <button>
+                            <a th:href="@{'/update-shift/' + ${shift.id}}">Cập nhật</a>
+                        </button>
+                        <button th:onclick="'deleteShift(\'' + ${shift.id} + '\')'">Xoá</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <button onclick="window.location.href='/add-shift'">Thêm ca mới</button>
+        </div>
+<!--        <button th:onclick="'deleteShift(\'' + ${shift.id} + '\')'">Thêm ca</button>-->
+    </div>
+    <script>
+        function deleteShift(shiftId) {
+            const id = shiftId
+            fetch('http://localhost:8080/delete-shift' , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(id)
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        // window.location.href = "login";
+                    }
+                    else {
+                        alert("Tên người dùng đã tồn tại");
+                    }
+                })
+                .catch((error) => {
+                    alert("Lỗi trong quá trình chạy!");
+                });
+        }
+    </script>
+</body>
+</html>

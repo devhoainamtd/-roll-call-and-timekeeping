@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng kí ca</title>
+    <style>
+            /* Reset some default styles */
+    body, h1, h2, h3, p, ul, li, table, th, td {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+    }
+
+    .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .navigation ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    .navigation li {
+        float: left;
+    }
+
+    .navigation li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .navigation li a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    div > div {
+        margin-bottom: 10px;
+    }
+
+    span {
+        display: inline-block;
+        width: 150px;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden;    /* Hide content that overflows */
+        text-overflow: ellipsis; /* Display ellipsis (...) for overflowed content */
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    #btnlogout{
+        background-color: #e44d26;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #btnlogout:hover {
+        background-color: #bf4024;
+    }
+    button{
+        background-color: #4CAF50;
+    }
+    button:hover{
+        background-color: rgb(164, 164, 241);
+    }
+    .navigation ul{
+        display: flex;
+    
+    }
+    .navigation ul li{
+        flex-grow: 1;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button id="btnlogout" style="float: right;
+                    margin-top: -34px;" type="submit">Logout</button>
+                </form>          
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+               
+            </ul>
+        </div>
+
+        <div>
+            <div>
+                <span>ID</span>
+                <span th:text="${userDTO.id}"></span>
+            </div>
+            <div>
+                <span>Họ và tên</span>
+                <span th:text="${userDTO.name}"></span>
+            </div>
+            <div class="boloc">
+            
+                <table>
+                    <tr>
+                        <td>
+                            Tìm ca theo Mã:
+                            <input type="text" placeholder="Nhập mã ca muốn tìm">
+                            <button type="button">Tìm kiếm</button>
+                        </td>
+                        <td>
+                            Lọc ca:
+                            <select name="calamviec" id="calamviec">
+                                <option value="Tất cả">Tất cả</option>
+                                <option value="Ca đã qua">Ca đã qua</option>
+                                <option value="Ca đang làm">Ca đang làm</option>
+                                <option value="Ca chưa tới ngày">Ca chưa tới ngày</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+            <table>
+                <tr>
+                    <th>Mã ca</th>
+                    <th>Tên ca</th>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    <th>Ngày làm</th>
+                    <th>Số lượng nhân viên tối đa</th>
+                    <th></th>
+                </tr>
+
+                <tr th:each="shift : ${listShift}">
+                    <td>
+                        <span th:text="${shift.id}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.name}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.startTime}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.endTime}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.workingDay}"></span>
+                    </td>
+                    <td>
+                            <span th:text="${shift.max}"></span>
+                    </td>
+                    <td>
+                        <input type="checkbox" th:value="${shift.id}" class="shiftCheckbox">
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <div>
+                <button th:onclick="'registerShifts(\'' + ${userDTO.id} + '\')'">Đăng ký</button>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        function registerShifts(id) {
+        const selectedShifts = [];
+        const checkboxes = document.getElementsByClassName('shiftCheckbox');
+
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedShifts.push(checkboxes[i].value);
+            }
+        }
+        console.log(selectedShifts);
+
+        var registerShiftRequest = {
+            userId: id,
+            shiftIds: selectedShifts
+        }
+
+        fetch('http://localhost:8080/register-shift' , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registerShiftRequest)
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        // window.location.href = "login";
+                    }
+                    else {
+                        alert("Tên người dùng đã tồn tại");
+                    }
+                })
+                .catch((error) => {
+                    alert("Lỗi trong quá trình chạy!");
+                });
+}
+
+    </script>
+
+</body>
+</html>

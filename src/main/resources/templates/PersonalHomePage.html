@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin nhân viên</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    
+    <style>
+                /* Reset some default styles */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .navigation ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navigation li {
+            float: left;
+        }
+
+        .navigation li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navigation li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        div > div {
+            margin-bottom: 10px;
+        }
+
+        span {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+
+        a {
+            color:white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        /* Style user information */
+        div > div > span {
+            color: #333;
+        }
+
+        div > div > span + span {
+            color: #555;
+        }
+        #btnlogout{
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #btnlogout:hover {
+            background-color: #bf4024;
+        }
+        
+        #btncapnhat{
+            background-color: #45a049;
+        }
+        button{
+            background-color: #4CAF50;
+        }
+        button:hover{
+            background-color: rgb(164, 164, 241);
+        }
+        .navigation ul{
+            display: flex;
+        
+        }
+        .navigation ul li{
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"></div>
+            <div class="name-program">
+                <h1>Phần mềm quản lý điểm danh và chấm công</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button id="btnlogout" style="float: right;
+                    margin-top: -34px;" type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+        <div class="navigation">
+            <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Điểm danh và chấm công</a></li>
+                <li><a th:href="@{'/show-all-shift'}">Quản lý ca làm việc</a></li>
+                <li><a th:href="@{'/show-all-user'}">Quản lý nhân viên</a></li>
+                <li><a th:href="@{'/page/personal-home-page'}">Thông tin cá nhân</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div>
+                <span>ID: </span>
+                <span th:text="${userDTO.id}"></span>
+            </div>
+            <div>
+                <span>Họ và Tên: </span>
+                <span th:text="${userDTO.name}"></span>
+            </div>
+            <div>
+                <span>Hình ảnh: </span>
+                <span th:text="${userDTO.image}"></span>
+            </div>
+            <div>
+                <span>Thâm niên: </span>
+                <span th:text="${userDTO.seniority}"></span>
+            </div>
+            <div>
+                <span>Email: </span>
+                <span th:text="${userDTO.email}"></span>
+            </div>
+            <div>
+                <span>Số điện thoại: </span>
+                <span th:text="${userDTO.phoneNumber}"></span>
+            </div>
+            <div>
+                <span>Số tài khoản: </span>
+                <span th:text="${userDTO.accountNumber}"></span>
+            </div>
+            <div>
+                <span>Địa chỉ: </span>
+                <span th:text="${userDTO.address}"></span>
+            </div>
+            <div>
+                <span>Chức vụ: </span>
+                <span th:text="${userDTO.position}"></span>
+            </div>
+            <div>
+                <span>Lương: </span>
+                <span th:text="${userDTO.salary}"></span>
+            </div>
+        <div>
+            <a href="/personal-information" id="btncapnhat">Cập nhật</a>
+            
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
