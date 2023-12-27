@@ -134,6 +134,7 @@
         .navigation ul li {
             flex-grow: 1;
         }
+        
     </style>
 </head>
 
@@ -249,7 +250,43 @@
                     <input type="text" id="salary">
                 </div>
             </div>
-
+            <div class="boloc">
+                <h3>Bộ lọc ca</h3>
+                        <tr>
+                            <td>
+                                Tìm ca:
+                                <input type="text" placeholder="Nhập mã ca:">
+                                <button type="button">Tìm kiếm</button>
+                            </td>
+                            <td>
+                                Theo thời gian bắt đầu:
+                                <select name="diemdanh" id="diemdanh">
+                                    <option value="Tất cả">Tất cả</option>
+                                    <option value="Chưa điểm danh">7h:00</option>
+                                    <option value="Đã điểm danh">13h:00</option>
+                                    
+                                </select>
+                            </td>
+                            <td>
+                                Theo thời gian kết thúc:
+                                <select name="chamcong" id="chamcong">
+                                    <option value="Tất cả">Tất cả</option>
+                                    <option value="Chưa chấm công">11h:00</option>
+                                    <option value="Đã chấm công">Đã chấm công</option>
+                                </select>
+                            </td>
+                            <td>
+                                Theo ngày làm việc:
+                                <select name="chamcong" id="chamcong">
+                                    <option value="Tất cả">7 ngày tới</option>
+                                    <option value="Chưa chấm công">3 ngày tới</option>
+                                    <option value="Đã chấm công">Trong 1 tháng</option>
+                                </select>
+                            </td>
+                        </tr>
+                
+                </table>
+            </div>
 
             <div>
                 <h3>Các ca làm việc sắp tới</h3>
@@ -264,32 +301,22 @@
                     </tr>
                     <tr th:each="shift : ${userDTO.rollCallAndTimekeepingDTOList}">
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.id}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.name}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.startTime}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.endTime}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.workingDay}"></span>
-                            </a>
                         </td>
                         <td>
-                            <button th:onclick="'deleteShift(\'' + ${shift.id} + '\')'">Delete</button>
+                            <button th:onclick="'deleteShift(\'' + ${shift.id} + '\')'" style="background-color:red">Xóa</button>
                         </td>
                     </tr>
                 </table>
@@ -341,7 +368,7 @@
             })
                 .then((response) => {
                     if (response.status == 200) {
-                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        alert("Bạn đã cập nhật ca thành công!");
                         // window.location.href = "login";
                     }
                     else {
@@ -364,8 +391,9 @@
             })
                 .then((response) => {
                     if (response.status == 200) {
-                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        alert("Bạn đã xoá ca thành công!");
                         // window.location.href = "login";
+                        location.reload();
                     }
                     else {
                         alert("Tên người dùng đã tồn tại");

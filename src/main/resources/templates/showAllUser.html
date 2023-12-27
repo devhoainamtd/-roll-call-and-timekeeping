@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Tất cả nhân viên</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    
     <style> 
         body {
             font-family: Arial, sans-serif;
@@ -75,10 +76,15 @@
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 15px;
+            padding: 10px 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+        }
+
+        button a {
+            margin: 0;
+            padding: 0;
         }
         
         button:hover {
@@ -97,6 +103,10 @@
         .navigation ul li{
             flex-grow: 1;
         }
+        .boloc{
+           
+        }
+       
     </style>
 </head>
 <body>
@@ -125,7 +135,7 @@
             </ul>
         </div>
 
-        <div class="boloc">
+        <div class="boloc"  style=" margin-top:13px;    ">
             
             <table>
                 <tr>
@@ -159,33 +169,25 @@
         <div>
             <table>
                 <tr>
-                    <th>ID</th>
-                    <th>Họ và Tên</th>
-                    <th>Email</th>
+                    <th width="120px">Mã nhân viên</th>
+                    <th width="300px">Họ và Tên</th>
+                    <th width="250px">Email</th>
                     <th>Chức vụ</th>
                     <th></th>
                 </tr>
 
                 <tr th:each="user : ${listUser}">
                     <td>
-                        <a th:href="@{'/user-detail/' + ${user.id}}">
                             <span th:text="${user.id}"></span>
-                        </a>
                     </td>
                     <td>
-                        <a th:href="@{'/user-detail/' + ${user.id}}">
                             <span th:text="${user.name}"></span>
-                        </a>
                     </td>
                     <td>
-                        <a th:href="@{'/user-detail/' + ${user.id}}">
                             <span th:text="${user.email}"></span>
-                        </a>
                     </td>
                     <td>
-                        <a th:href="@{'/user-detail/' + ${user.id}}">
                             <span th:text="${user.position}"></span>
-                        </a>
                     </td>
                     <td>
                         <button type="button">
@@ -197,7 +199,7 @@
                     </td>
                 </tr>
             </table>
-            <button type="button"><a href="/add-page">Thêm nhân viên</button>
+            <button type="button"><a href="/add-page" style="text-decoration:none;   ">Thêm nhân viên</button>
         </div>
     </div>
     <script>

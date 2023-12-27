@@ -28,7 +28,9 @@
             padding: 10px;
             margin-bottom: 20px;
         }
-        
+        .navigation{
+            margin-bottom:13px;
+        }
         .navigation ul {
             list-style-type: none;
             margin: 0;
@@ -96,11 +98,29 @@
         .navigation ul li{
             flex-grow: 1;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+    
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; /* Prevent text from wrapping */
+            overflow: hidden;    /* Hide content that overflows */
+            text-overflow: ellipsis; /* Display ellipsis (...) for overflowed content */
+        }
+    
+        th {
+            background-color: #333;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
-
         <header>
             <div class="logo"></div>
             <div class="name-program">
@@ -113,7 +133,6 @@
                 </form>           
             </div>
         </header>
-
         <div class="navigation">
             <ul>
                 <li><a href="/home">Trang chủ</a></li>
@@ -123,7 +142,43 @@
                 
             </ul>
         </div>
-
+        <div class="boloc">
+            <h3>Bộ lọc ca</h3>
+                    <tr>
+                        <td>
+                            Tìm ca:
+                            <input type="text" placeholder="Nhập mã ca:">
+                            <button type="button">Tìm kiếm</button>
+                        </td>
+                        <td>
+                            Theo thời gian bắt đầu:
+                            <select name="diemdanh" id="diemdanh">
+                                <option value="Tất cả">Tất cả</option>
+                                <option value="Chưa điểm danh">7h:00</option>
+                                <option value="Đã điểm danh">13h:00</option>
+                                
+                            </select>
+                        </td>
+                        <td>
+                            Theo thời gian kết thúc:
+                            <select name="chamcong" id="chamcong">
+                                <option value="Tất cả">Tất cả</option>
+                                <option value="Chưa chấm công">11h:00</option>
+                                <option value="Đã chấm công">Đã chấm công</option>
+                            </select>
+                        </td>
+                        <td>
+                            Theo ngày làm việc:
+                            <select name="chamcong" id="chamcong">
+                                <option value="Tất cả">7 ngày tới</option>
+                                <option value="Chưa chấm công">3 ngày tới</option>
+                                <option value="Đã chấm công">Trong 1 tháng</option>
+                            </select>
+                        </td>
+                    </tr>
+            
+            </table>
+        </div>
         <div>
             <table>
                 <tr>

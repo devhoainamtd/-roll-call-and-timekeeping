@@ -6,23 +6,18 @@
     <meta charset="UTF-8">
     <title>Cập nhật nhân viên</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="style_for_boloc.css">
     <style>
-        body,
-        h1,
-        h2,
-        h3,
-        p,
-        ul,
-        li {
+        body, h1, h2, h3, p, ul, li {
             margin: 0;
             padding: 0;
         }
-
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f8f8;
         }
-
+        
         .wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -93,12 +88,13 @@
         th,
         td {
             border: 1px solid #ddd;
+            text-align:center;
         }
 
         th,
         td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
@@ -155,6 +151,30 @@
         .navigation ul li {
             flex-grow: 1;
         }
+        .navigation{
+            margin-bottom: 13px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        button a {
+            margin: 0;
+            padding: 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #333;
+            color: white;
+        }
     </style>
 </head>
 
@@ -180,7 +200,7 @@
             </ul>
         </div>
 
-        <div style="display: flex;">
+        <div>
             <div>
                 <div>
                     <span>ID:</span>
@@ -224,41 +244,68 @@
                 </div>
 
             </div>
-            <div>
+            <div class="boloc" style="margin-top:13px;margin-bottom=13px;">
+                <h3>Bộ lọc ca</h3>
+                        <tr>
+                            <td>
+                                Tìm ca:
+                                <input type="text" placeholder="Nhập mã ca:">
+                                <button type="button">Tìm kiếm</button>
+                            </td>
+                            <td>
+                                Theo thời gian bắt đầu:
+                                <select name="diemdanh" id="diemdanh">
+                                    <option value="Tất cả">Tất cả</option>
+                                    <option value="Chưa điểm danh">7h:00</option>
+                                    <option value="Đã điểm danh">13h:00</option>
+                                    
+                                </select>
+                            </td>
+                            <td>
+                                Theo thời gian kết thúc:
+                                <select name="chamcong" id="chamcong">
+                                    <option value="Tất cả">Tất cả</option>
+                                    <option value="Chưa chấm công">11h:00</option>
+                                    <option value="Đã chấm công">Đã chấm công</option>
+                                </select>
+                            </td>
+                            <td>
+                                Theo ngày làm việc:
+                                <select name="chamcong" id="chamcong">
+                                    <option value="Tất cả">7 ngày tới</option>
+                                    <option value="Chưa chấm công">3 ngày tới</option>
+                                    <option value="Đã chấm công">Trong 1 tháng</option>
+                                </select>
+                            </td>
+                        </tr>
+                
+                </table>
+            </div>
+            <div style="margin-bottom:13px">
                 <table>
                     <tr>
                         <th>ID</th>
                         <th>Tên ca</th>
                         <th>Thời gian bắt đầu</th>
                         <th>Thời gian kết thúc</th>
-                        <th>Ngày làm</th>
+                        <th>Ngày làm việc</th>
                         <th></th>
                     </tr>
                     <tr th:each="shift : ${userDTO.rollCallAndTimekeepingDTOList}">
                         <td>
-                            <a th:href="@{'/shift-detail/' + ${shift.id}}">
                                 <span th:text="${shift.shiftDTO.id}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a th:href="@{'/shift-detail/' + ${shift.id}}">
                                 <span th:text="${shift.shiftDTO.name}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.startTime}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.endTime}"></span>
-                            </a>
                         </td>
                         <td>
-                            <a href="">
                                 <span th:text="${shift.shiftDTO.workingDay}"></span>
-                            </a>
                         </td>
                         <td>
     
@@ -317,7 +364,7 @@
             })
                 .then((response) => {
                     if (response.status == 200) {
-                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        alert("Bạn đã cập nhật thành công!");
                         // window.location.href = "login";
                     }
                     else {
@@ -340,7 +387,7 @@
             })
                 .then((response) => {
                     if (response.status == 200) {
-                        alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        alert("Bạn đã xoá tài khoản thành công!");
                         // window.location.href = "login";
                     }
                     else {

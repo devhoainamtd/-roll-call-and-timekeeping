@@ -127,6 +127,25 @@
     .navigation ul li{
         flex-grow: 1;
     }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden;    /* Hide content that overflows */
+        text-overflow: ellipsis; /* Display ellipsis (...) for overflowed content */
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
     </style>
 </head>
 <body>
@@ -155,11 +174,11 @@
 
         <div>
             <div>
-                <span>ID</span>
+                <span>Mã nhân viên:</span>
                 <span th:text="${userDTO.id}"></span>
             </div>
             <div>
-                <span>Họ và tên</span>
+                <span>Họ và tên:</span>
                 <span th:text="${userDTO.name}"></span>
             </div>
             <div class="boloc">

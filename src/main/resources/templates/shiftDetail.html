@@ -29,7 +29,9 @@
             padding: 10px;
             margin-bottom: 20px;
         }
-
+        .navigation{
+            margin-bottom:13    px;
+        }
         .navigation ul {
             list-style-type: none;
             margin: 0;
@@ -56,10 +58,11 @@
         }
 
         .nhanvientrongca {
-            width: 1500px;
+            width: 100%;
             border: 1px solid black;
+            margin-bottom:13px;
         }
-
+       
         .nhanvientrongca th {
             background-color: black;
             color: white;
@@ -90,7 +93,9 @@
             border-radius: 4px;
             cursor: pointer;
         }
-
+        .boloc{
+            margin-top:12px;
+        }
         #btnlogout:hover {
             background-color: #bf4024;
         }
@@ -114,9 +119,32 @@
             display: flex;
 
         }
+        .navigation{
+            margin-bottom: 13px;
 
+        }
+        
         .navigation ul li {
             flex-grow: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+    
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; /* Prevent text from wrapping */
+            overflow: hidden;    /* Hide content that overflows */
+            text-overflow: ellipsis; /* Display ellipsis (...) for overflowed content */
+        }
+    
+        th {
+            background-color: #333;
+            color: white;
         }
     </style>
 
@@ -145,31 +173,67 @@
 
             </ul>
         </div>
-        <div>
-            <span>Mã ca: </span>
-            <span th:text="${shiftDTO.id}"></span>
+        <div class="infor">
+            <div>
+                <span>Mã ca: </span>
+                <span th:text="${shiftDTO.id}"></span>
+            </div>
+            <div>
+                <span>Tên ca: </span>
+                <span th:text="${shiftDTO.name}"></span>
+            </div>
+            <div>
+                <span>Thời gian bắt đầu: </span>
+                <span th:text="${shiftDTO.startTime}"></span>
+            </div>
+            <div>
+                <span>Thời gian kết thúc: </span>
+                <span th:text="${shiftDTO.endTime}"></span>
+            </div>
+            <div>
+                <span>Ngày làm việc: </span>
+                <span th:text="${shiftDTO.workingDay}"></span>
+            </div>
+            <div>
+                <span>Số lượng tối đa: </span>
+                <span th:text="${shiftDTO.max}"></span>
+            </div>
         </div>
-        <div>
-            <span>Tên ca: </span>
-            <span th:text="${shiftDTO.name}"></span>
+        
+    <div class="boloc">
+            <h3>Bộ lọc nhân viên</h3>
+            <table>
+                <tr>
+                    <td>
+                        Tìm nhân viên theo Mã:
+                        <input type="text" placeholder="Nhập mã nhân viên:">
+                        <button type="button">Tìm kiếm</button>
+                    </td>
+                    <td>
+                        Tìm nhân viên theo tên:
+                        <input type="text" placeholder="Nhập tên">
+                        <button type="button">Tìm kiếm</button>
+                    </td>
+                    <td>
+                        Lọc điểm danh:
+                        <select name="diemdanh" id="diemdanh">
+                            <option value="Tất cả">Tất cả</option>
+                            <option value="Chưa điểm danh">Chưa điểm danh</option>
+                            <option value="Đã điểm danh">Đã điểm danh</option>
+                            
+                        </select>
+                    </td>
+                    <td>
+                        Lọc chấm công:
+                        <select name="chamcong" id="chamcong">
+                            <option value="Tất cả">Tất cả</option>
+                            <option value="Chưa chấm công">Chưa chấm công</option>
+                            <option value="Đã chấm công">Đã chấm công</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div>
-            <span>Thời gian bắt đầu: </span>
-            <span th:text="${shiftDTO.startTime}"></span>
-        </div>
-        <div>
-            <span>Thời gian kết thúc: </span>
-            <span th:text="${shiftDTO.endTime}"></span>
-        </div>
-        <div>
-            <span>Ngày làm việc: </span>
-            <span th:text="${shiftDTO.workingDay}"></span>
-        </div>
-        <div>
-            <span>Số lượng tối đa: </span>
-            <span th:text="${shiftDTO.max}"></span>
-        </div>
-
         <div>
             <table class="nhanvientrongca">
                 <tr>
@@ -182,29 +246,29 @@
                     <th></th>
                 </tr>
                 <tr th:each="x : ${shiftDTO.rollCallAndTimekeepingDTOList}">
-                    <td>
+                    <td width="100px" align="center">
                         <span th:text="${x.userDTO.id}"></span>
                     </td>
-                    <td>
+                    <td width="200px" align="center"> 
                         <span th:text="${x.userDTO.name}"></span>
                     </td>
-                    <td>
+                    <td width="100px" align="center">
                         <span th:if="${x.rollCallTime} == null">00:00:00</span>
                         <span th:unless="${x.rollCallTime} == null" th:text="${x.rollCallTime}"></span>
                     </td>
-                    <td>
+                    <td width="100px" align="center">
                         <span th:if="${x.rollCallStatus} == null">Chưa điểm danh</span>
                         <span th:unless="${x.rollCallStatus} == null" th:text="${x.rollCallStatus}"></span>
                     </td>
-                    <td>
+                    <td width="100px" align="center">
                         <span th:if="${x.timekeepingTime} == null">00:00:00</span>
                         <span th:unless="${x.timekeepingTime} == null" th:text="${x.timekeepingTime}"></span>
                     </td>
-                    <td>
+                    <td width="100px" align="center">
                         <span th:if="${x.timekeepingStatus} == null">Chưa chấm công</span>
                         <span th:unless="${x.timekeepingStatus} == null" th:text="${x.timekeepingStatus}"></span>
                     </td>
-                    <td>
+                    <td width="150px" align="center">
                         <button id="roll-call"
                             th:onclick="'rollCall(\'' + ${x.userDTO.id} + '\', \'' + ${shiftDTO.id} + '\')'">
                             Điểmdanh
@@ -213,10 +277,10 @@
                             th:onclick="'timekeeping(\'' + ${x.userDTO.id} + '\', \'' + ${shiftDTO.id} + '\')'">
                             Chấm công
                         </button>
-                        <!-- <button id="timekeeping" style="background-color: #e44d26; color: white;"
+                        <button id="timekeeping" style="background-color: #e44d26; color: white;"
                             th:onclick="'timekeeping(\'' + ${x.userDTO.id} + '\', \'' + ${shiftDTO.id} + '\')'">
                             Xóa
-                        </button> -->
+                        </button> 
                     </td>
                 </tr>
             </table>

@@ -10,8 +10,7 @@
         body, h1, h2, h3, p, ul, li, table, th, td {
             margin: 0;
             padding: 0;
-        }
-        
+        }      
         body {
             
             font-family: Arial, sans-serif;
@@ -54,13 +53,15 @@
             padding: 14px 16px;
             text-decoration: none;
         }
-        
+        .navigation{
+            margin-bottom:10px;
+        }
         .navigation li a:hover {
             background-color: #ddd;
             color: black;
         }
         .nhanvientrongca{
-            width:1680px;
+            width:100%;
             border:1px solid black;
         }
         .nhanvientrongca th{
@@ -68,7 +69,8 @@
             color:white;
         }
         .nhanvientrongca tr{
-            border:1px solid black;
+            border-bottom:1px solid black;
+            border-left:1px solid black;
         }
         button {
             background-color: #4CAF50;
@@ -104,6 +106,34 @@
         }
         .navigation ul li{
             flex-grow: 1;
+        }
+        body .boloc{
+            margin: 15px 0px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+    
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; /* Prevent text from wrapping */
+            overflow: hidden;    /* Hide content that overflows */
+            text-overflow: ellipsis; /* Display ellipsis (...) for overflowed content */
+        }
+    
+        th {
+            background-color: #333;
+            color: white;
         }
     </style>
 </head>
@@ -151,7 +181,7 @@
                 <span th:text="${currentUser.position}"></span>
             </div>
             <div class="boloc">
-                <h3>Các ca làm việc sắp tới</h3>
+                <h3>Bộ lọc ca</h3>
                 <table>
                     <tr>
                         <td>
@@ -190,12 +220,11 @@
                 </table>
             </div>
             <div>
-                
                 <table class="nhanvientrongca">
+                    <h3>Các ca làm việc sắp tới:</h3>
                     <tr>
-                        <th>ID</th>
+                        <th>Mã ca</th>
                         <th>Tên ca</th>
-                        
                         <th>Ngày làm</th>
                         <th>Thời gian điểm danh</th>
                         <th>Trạng thái điểm danh</th>
