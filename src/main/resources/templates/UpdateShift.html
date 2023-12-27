@@ -277,6 +277,8 @@ console.log(id);
                 .then((response) => {
                     if (response.status == 200) {
                         alert("Bạn đã đăng ký thành công tài khoản thành công!");
+                        location.reload();
+
                         // window.location.href = "login";
                     }
                     else {

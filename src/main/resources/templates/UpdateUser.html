@@ -369,6 +369,9 @@
                 .then((response) => {
                     if (response.status == 200) {
                         alert("Bạn đã cập nhật ca thành công!");
+                        
+                        location.reload();
+
                         // window.location.href = "login";
                     }
                     else {

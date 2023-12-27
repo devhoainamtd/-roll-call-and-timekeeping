@@ -302,6 +302,7 @@
                 .then((response) => {
                     if (response.status == 200) {
                         alert("Bạn đã điểm danh thành công!");
+                        location.reload();
                         // window.location.href = "login";
                     }
                     else {
@@ -340,6 +341,7 @@
                     if (response.status == 200) {
                         alert("Bạn đã chấm công thành công!");
                         // window.location.href = "login";
+                        location.reload();
                     }
                     else {
                         alert("Bạn chấm không thành công!");
